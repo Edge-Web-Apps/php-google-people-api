@@ -176,7 +176,7 @@ class GooglePeople
         if(!str_contains("contactGroups/",$groupName)){
             return false;
         }
-//        ested URL /v1/contactGroups/contactGroups/efb1bea0873c2b2?maxMembers=1000 was not found on this server. That’s all we know.
+
         $url = self::PEOPLE_BASE_URL.$groupName.'?maxMembers=1000';
 
         $response = $this->googleOAuth2Handler->performRequest('GET', $url);
