@@ -155,7 +155,7 @@ class GooglePeople
     public function getGroups()
     {
         //https://developers.google.com/people/api/rest/v1/contactGroups/list for reference, all params are optional
-        $url = self::PEOPLE_BASE_URL.'/contactGroups';
+        $url = self::PEOPLE_BASE_URL.'contactGroups';
 
         $response = $this->googleOAuth2Handler->performRequest('GET', $url);
         $body = (string) $response->getBody();
