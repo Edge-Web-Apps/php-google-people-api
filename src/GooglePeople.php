@@ -170,10 +170,10 @@ class GooglePeople
     }
 
 
-    public function getGroupMembers($groupID)
+    public function getGroupMembers($groupName)
     {
         //https://developers.google.com/people/api/rest/v1/contactGroups/get for reference, all params are optional
-        $url = self::PEOPLE_BASE_URL.'contactGroups/'.$groupID;
+        $url = self::PEOPLE_BASE_URL.'contactGroups/'.$groupName.'?maxMembers=1000';
 
         $response = $this->googleOAuth2Handler->performRequest('GET', $url);
         $body = (string) $response->getBody();
