@@ -174,13 +174,13 @@ class GooglePeople
     {
         //https://developers.google.com/people/api/rest/v1/contactGroups/get for reference, all params are optional
 //        if(!str_contains("contactGroups/",$groupName)){
-//            return 'dawg';
+//            return false;
 //        }
 
         $url = self::PEOPLE_BASE_URL.$groupName.'?maxMembers=1000';
 
         $response = $this->googleOAuth2Handler->performRequest('GET', $url);
-        return($response);
+//        return($response);
         $body = (string) $response->getBody();
 
         if ($response->getStatusCode()!=200) {
