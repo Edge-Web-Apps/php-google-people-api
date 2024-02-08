@@ -173,7 +173,11 @@ class GooglePeople
     public function getGroupMembers($groupName)
     {
         //https://developers.google.com/people/api/rest/v1/contactGroups/get for reference, all params are optional
-        $url = self::PEOPLE_BASE_URL.'contactGroups/'.$groupName.'?maxMembers=1000';
+        if(!str_contains("contactGroups/",$groupName)){
+            return false;
+        }
+//        ested URL /v1/contactGroups/contactGroups/efb1bea0873c2b2?maxMembers=1000 was not found on this server. That’s all we know.
+        $url = self::PEOPLE_BASE_URL.$groupName.'?maxMembers=1000';
 
         $response = $this->googleOAuth2Handler->performRequest('GET', $url);
         $body = (string) $response->getBody();
