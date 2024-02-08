@@ -169,4 +169,22 @@ class GooglePeople
         return $groups;
     }
 
+
+    public function getGroupMembers($groupID)
+    {
+        //https://developers.google.com/people/api/rest/v1/contactGroups/get for reference, all params are optional
+        $url = self::PEOPLE_BASE_URL.'contactGroups/'.$groupID;
+
+        $response = $this->googleOAuth2Handler->performRequest('GET', $url);
+        $body = (string) $response->getBody();
+
+        if ($response->getStatusCode()!=200) {
+            throw new Exception($body);
+        }
+
+        $groupInfo = json_decode($body);
+
+        return $groupInfo;
+    }
+
 }
