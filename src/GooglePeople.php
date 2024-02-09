@@ -52,16 +52,9 @@ class GooglePeople
         return $this->convertResponseConnectionToContact($contact);
     }
 
-    public function all($emailsOnly = null)
+    public function all()
     {
-        //Grabs email contacts only
-        if($emailsOnly === true){
-            $url = self::PEOPLE_BASE_URL.'people/me/connections?personFields=emailAddresses,names,metadata&pageSize=2000';
-        }
-        //Normal path
-        else{
-            $url = self::PEOPLE_BASE_URL.'people/me/connections?personFields='.implode(',', self::PERSON_FIELDS).'&pageSize=2000';
-        }
+        $url = self::PEOPLE_BASE_URL.'people/me/connections?personFields='.implode(',', self::PERSON_FIELDS).'&pageSize=2000';
 
         $response = $this->googleOAuth2Handler->performRequest('GET', $url);
         $body = (string) $response->getBody();
@@ -158,6 +151,21 @@ class GooglePeople
         return true;
     }
 
+
+    public function getOtherContacts()
+    {
+        //https://developers.google.com/people/api/rest/v1/otherContacts/list for reference, all params are optional
+        $url = self::PEOPLE_BASE_URL.'otherContacts?readMask=emailAddresses,names';
+
+        $response = $this->googleOAuth2Handler->performRequest('GET', $url);
+        $body = (string) $response->getBody();
+
+        if ($response->getStatusCode()!=200) {
+            throw new Exception($body);
+        }
+
+        return json_decode($body);
+    }
 
     public function getGroups()
     {
