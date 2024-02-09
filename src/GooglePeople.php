@@ -56,9 +56,9 @@ class GooglePeople
     {
         //Grabs email contacts only
         if($emailsOnly === true){
-            $url = self::PEOPLE_BASE_URL.'people/me/connections?personFields=emailAddresses&pageSize=2000';
+            $url = self::PEOPLE_BASE_URL.'people/me/connections?personFields=email,names,metadata&pageSize=2000';
         }
-        //Normal apth
+        //Normal path
         else{
             $url = self::PEOPLE_BASE_URL.'people/me/connections?personFields='.implode(',', self::PERSON_FIELDS).'&pageSize=2000';
         }
