@@ -52,9 +52,16 @@ class GooglePeople
         return $this->convertResponseConnectionToContact($contact);
     }
 
-    public function all()
+    public function all($emailsOnly = null)
     {
-        $url = self::PEOPLE_BASE_URL.'people/me/connections?personFields='.implode(',', self::PERSON_FIELDS).'&pageSize=2000';
+        //Grabs email contacts only
+        if($emailsOnly === true){
+            $url = self::PEOPLE_BASE_URL.'people/me/connections?personFields=emailAddresses&pageSize=2000';
+        }
+        //Normal apth
+        else{
+            $url = self::PEOPLE_BASE_URL.'people/me/connections?personFields='.implode(',', self::PERSON_FIELDS).'&pageSize=2000';
+        }
 
         $response = $this->googleOAuth2Handler->performRequest('GET', $url);
         $body = (string) $response->getBody();
